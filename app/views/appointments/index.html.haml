@@ -1,0 +1,20 @@
+.container.d-flex.justify-content-center
+  .d-flex.flex-column
+    .p-2
+      %h1
+        %center React Calender
+    .p-2
+      %h2 Appointments
+
+    .p-2
+      = react_component('Appointments', { appointments: @appointments})
+      = @appointments[0].title
+    -# =form_for @appointment, remote: true do |f|
+    -#   =f.label 'Title'
+    -#   =f.text_field :title
+    -#   =f.label 'Appt_Time'
+    -#   =f.text_field :appt_time
+    -#   =f.submit 'Make it!'
+    -#
+    -# #appointments
+    -#   = render 'appointments'
