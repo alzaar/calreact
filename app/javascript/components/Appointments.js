@@ -4,6 +4,7 @@ import Appointment from "components/appointment";
 import AppointmentForm from "components/appointmentform";
 import AppointmentList from "components/appointmentlist";
 import update from 'immutability-helper';
+import Moment from 'react-moment';
 
 class Appointments extends React.Component {
   constructor(props) {
@@ -11,11 +12,12 @@ class Appointments extends React.Component {
     this.state = {
       appointments: this.props.appointments,
       title: '',
-      appt_time: ' '
+      appt_time: new Date()
     }
     this.handleUserInput = this.handleUserInput.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.addNewAppointment = this.addNewAppointment.bind(this);
+    this.handleDateTime = this.handleDateTime.bind(this);
   }
   handleUserInput(obj) {
     if (obj.target.name === 'Title') {
@@ -41,8 +43,16 @@ class Appointments extends React.Component {
     }
   }).then((data) => {
     this.addNewAppointment(data);
+
+  }).catch(error => {
+    console.log(error);
   });
 
+  }
+
+  handleDateTime(e) {
+    console.log(e);
+    this.setState({appt_time: e});
   }
 
   addNewAppointment(appointment) {
@@ -56,6 +66,7 @@ class Appointments extends React.Component {
         <AppointmentForm title={this.state.title} appt_time={this.state.appt_time}
           onUserInput={this.handleUserInput}
           onFormSubmit={this.handleFormSubmit}
+          onDateTimeInput={this.handleDateTime}
           />
         <AppointmentList appointments={this.props.appointments} />
       </div>
